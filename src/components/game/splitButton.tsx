@@ -46,7 +46,7 @@ const SplitButton: React.FC<SplitButtonProps> = React.memo(({
     const tooltipContent = useMemo(() => (
         <TooltipContent>
             <p>Splits your pair into two hands</p>
-            <p className="text-xs mt-1">Costs an additional {formattedBet}</p>
+            <p className="mt-1 text-xs">Costs an additional {formattedBet}</p>
         </TooltipContent>
     ), [formattedBet]);
 

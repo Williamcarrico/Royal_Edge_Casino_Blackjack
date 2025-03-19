@@ -36,7 +36,7 @@ export const HitButton = React.memo(({
     // Memoize tooltip content
     const tooltipContent = useMemo(() => (
         <TooltipContent>
-            <p>Take another card from the dealer</p>
+            <span>Take another card from the dealer</span>
         </TooltipContent>
     ), []);
 

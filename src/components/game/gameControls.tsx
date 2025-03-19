@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useMemo, useCallback } from 'react';
+import React, { useRef, useEffect, useMemo, useCallback } from 'react';
 import { Button } from '@/ui/layout/button';
 import { SplitButton } from './splitButton';
 import { createBounceAnimation } from '@/lib/utils/animations';

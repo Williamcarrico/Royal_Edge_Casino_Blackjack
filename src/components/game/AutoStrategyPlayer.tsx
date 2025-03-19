@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useGameStore } from '@/store/gameStore';
 import { basicStrategy, PlayerAction } from '@/lib/utils/basicStrategy';
 import { Button } from '@/ui/layout/button';
@@ -32,7 +32,6 @@ export const AutoStrategyPlayer: React.FC<AutoStrategyPlayerProps> = ({ classNam
         autoPlayBasicStrategy: state.autoPlayBasicStrategy,
         setAutoPlayBasicStrategy: state.setAutoPlayBasicStrategy
     }));
-    const delayTimerRef = useRef<NodeJS.Timeout | null>(null);
 
     // Track the current strategy suggestion
     const [currentSuggestion, setCurrentSuggestion] = useState<string | null>(null);
@@ -128,7 +127,7 @@ export const AutoStrategyPlayer: React.FC<AutoStrategyPlayerProps> = ({ classNam
             console.error('Error calculating strategy suggestion:', error);
             setCurrentSuggestion('error');
         }
-    }, [gamePhase, dealerHand, player, autoPlayBasicStrategy, executeRecommendedAction]);
+    }, [gamePhase, dealerHand, player, autoPlayBasicStrategy, executeRecommendedAction, canDoubleDown, canSplit, canSurrender]);
 
     // Manual strategy suggestion button
     const suggestMove = () => {
@@ -186,10 +185,10 @@ export const AutoStrategyPlayer: React.FC<AutoStrategyPlayerProps> = ({ classNam
             {/* Strategy suggestion display */}
             {gamePhase === 'playerTurn' && (
                 <div className="p-3 rounded-md bg-slate-800">
-                    <h3 className="text-sm font-medium text-white mb-1">Optimal Strategy</h3>
+                    <h3 className="mb-1 text-sm font-medium text-white">Optimal Strategy</h3>
                     {currentSuggestion ? (
                         <div className="flex items-center justify-between">
-                            <p className="text-sm text-amber-400 font-medium">
+                            <p className="text-sm font-medium text-amber-400">
                                 Recommended: <span className="capitalize">{currentSuggestion}</span>
                             </p>
                             {!autoPlayBasicStrategy && (
@@ -197,7 +196,7 @@ export const AutoStrategyPlayer: React.FC<AutoStrategyPlayerProps> = ({ classNam
                                     variant="ghost"
                                     size="sm"
                                     className="text-xs text-white hover:text-amber-400"
-                                    onClick={() => currentSuggestion && executeRecommendedAction(currentSuggestion, dealerHand?.cards?.[0] as Card)}
+                                    onClick={() => currentSuggestion && executeRecommendedAction(currentSuggestion as PlayerAction, dealerHand?.cards?.[0])}
                                 >
                                     Apply
                                 </Button>

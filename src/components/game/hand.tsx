@@ -4,7 +4,6 @@ import React, { useMemo } from 'react';
 import { Hand as HandType } from '@/lib/utils/gameLogic';
 import { Card } from './card';
 import { cn } from '@/lib/utils';
-import styles from './hand.module.css';
 import { useInView } from 'react-intersection-observer';
 
 interface HandProps {
@@ -45,8 +44,8 @@ const VirtualizedHand = ({ cards, isDealer, showAllCards, isBusted }: {
                 ))}
 
                 {/* Collapsed middle section with indicator */}
-                <div className="flex items-center justify-center px-4 z-10">
-                    <div className="bg-black bg-opacity-70 text-white px-2 py-1 rounded">
+                <div className="z-10 flex items-center justify-center px-4">
+                    <div className="px-2 py-1 text-white bg-black rounded bg-opacity-70">
                         +{cards.length - 6} more
                     </div>
                 </div>
@@ -136,7 +135,7 @@ export const Hand = ({
         >
             {/* Label (Dealer/Player) */}
             {label && (
-                <div className="font-medium text-white text-lg mb-1">{label}</div>
+                <div className="mb-1 text-lg font-medium text-white">{label}</div>
             )}
 
             {/* Cards */}
@@ -149,7 +148,7 @@ export const Hand = ({
                         isBusted={hand.isBusted}
                     />
                 ) : (
-                    <div className="h-36 w-64 bg-gray-800 rounded-md flex items-center justify-center">
+                    <div className="flex items-center justify-center w-64 bg-gray-800 rounded-md h-36">
                         <span className="text-gray-400">Loading cards...</span>
                     </div>
                 )}

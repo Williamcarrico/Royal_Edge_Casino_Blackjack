@@ -1,12 +1,12 @@
 import React from 'react';
-import { useGameStore } from '@/features/game/store/gameStore';
+import { useGameStore } from '@/store/gameStore';
 import PlayerControls from './PlayerControls';
 import CardHand from './CardHand';
 import { isPlayerTurnPhase, isDealerTurnPhase, isSettlementPhase, isCompletedPhase } from '@/types/gameState';
 import { handUtils } from '@/lib/utils/handUtils';
 import { isDefined } from '@/lib/utils/safeAccessUtils';
-import { ProbabilityDisplay } from './ProbabilityDisplay';
-import { AutoStrategyPlayer } from './AutoStrategyPlayer';
+import { ProbabilityDisplay } from '@/components/game/ProbabilityDisplay';
+import { AutoStrategyPlayer } from '@/components/game/AutoStrategyPlayer';
 
 /**
  * Main Blackjack game component that combines all the pieces

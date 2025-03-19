@@ -1,0 +1,31 @@
+/* Sidebar CSS variables */
+:root {
+  --sidebar-width: 16rem;
+  --sidebar-width-mobile: 18rem;
+  --sidebar-width-icon: 3rem;
+}
+
+[data-sidebar-width] {
+  --sidebar-width: attr(data-sidebar-width);
+}
+
+[data-sidebar-width-mobile] {
+  --sidebar-width-mobile: attr(data-sidebar-width-mobile);
+}
+
+[data-sidebar-width-icon] {
+  --sidebar-width-icon: attr(data-sidebar-width-icon);
+}
+
+/* These classes can be used with Tailwind */
+.w-sidebar {
+  width: var(--sidebar-width);
+}
+
+.w-sidebar-mobile {
+  width: var(--sidebar-width-mobile);
+}
+
+.w-sidebar-icon {
+  width: var(--sidebar-width-icon);
+}

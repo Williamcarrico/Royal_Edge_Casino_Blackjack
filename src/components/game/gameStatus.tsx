@@ -133,7 +133,7 @@ export const GameStatus = ({
         <div
             ref={statusRef}
             data-phase={gamePhase}
-            data-result={roundResult || 'none'}
+            data-result={roundResult ?? 'none'}
             className={cn(
                 "px-8 py-3 rounded-lg shadow-md",
                 getBackgroundStyle(),

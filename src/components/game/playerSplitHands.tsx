@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Hand as HandType } from '@/lib/utils/gameLogic';
 import { Hand } from './hand';
@@ -97,7 +98,7 @@ export const PlayerSplitHands = ({
     // Multiple hands from split
     return (
         <div className={cn("flex flex-col items-center", className)}>
-            <div className="mb-4 text-gray-300 text-sm">Split Hands</div>
+            <div className="mb-4 text-sm text-gray-300">Split Hands</div>
 
             <div className="flex flex-wrap justify-center gap-6">
                 <AnimatePresence>
@@ -110,7 +111,7 @@ export const PlayerSplitHands = ({
                             transition={{ duration: 0.3, delay: index * 0.1 }}
                             className="flex flex-col items-center"
                         >
-                            <div className="mb-2 text-gray-300 text-sm">
+                            <div className="mb-2 text-sm text-gray-300">
                                 Hand {index + 1}
                             </div>
 

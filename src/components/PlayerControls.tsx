@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { useGameStore } from '@/store/gameStore';
 import {
@@ -126,7 +128,7 @@ const PlayerControls: React.FC = () => {
     if (isDealerTurnPhase(gameState)) {
         return (
             <div className="flex flex-col gap-4 p-4 bg-green-800 rounded-lg">
-                <h2 className="text-xl font-bold text-white">Dealer's Turn</h2>
+                <h2 className="text-xl font-bold text-white">Dealer&apos;s Turn</h2>
                 <p className="text-white">Dealer is playing...</p>
                 <button
                     onClick={() => gameState.playDealer()}
@@ -186,9 +188,9 @@ const PlayerControls: React.FC = () => {
     return (
         <div className="flex flex-col gap-4 p-4 bg-red-800 rounded-lg">
             <h2 className="text-xl font-bold text-white">Unknown Game State</h2>
-            <p className="text-white">Current phase: {gameState.gamePhase}</p>
+            <p className="text-white">Current phase: Unknown</p>
             <button
-                onClick={() => gameState.resetGame()}
+                onClick={() => window.location.reload()}
                 className="px-4 py-2 bg-blue-500 text-white font-bold rounded"
             >
                 Reset Game

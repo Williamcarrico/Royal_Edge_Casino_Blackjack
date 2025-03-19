@@ -42,7 +42,7 @@ export const DoubleDownButton = React.memo(({
     // Memoize tooltip content
     const tooltipContent = useMemo(() => (
         <TooltipContent>
-            <p>Double your bet and receive exactly one more card</p>
+            <span>Double your bet and receive exactly one more card</span>
         </TooltipContent>
     ), []);
 

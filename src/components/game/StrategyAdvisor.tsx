@@ -127,11 +127,14 @@ export const StrategyAdvisor: React.FC<StrategyAdvisorProps> = ({
         const dealerUpCard = dealerHand.cards[0];
 
         try {
+            // Check if doubling is actually allowed in the current game state
+            const canActuallyDouble = canDoubleDown ? canDoubleDown() : false;
+
             console.log('Calculating optimal strategy for:', {
                 playerCards: activeHand.cards.map(c => `${c.rank}${c.suit}`),
                 dealerUpCard: `${dealerUpCard.rank}${dealerUpCard.suit}`,
                 canSurrender: canSurrender ? canSurrender() : false,
-                canDouble: canDoubleDown ? canDoubleDown() : false,
+                canDouble: canActuallyDouble,
                 canSplit: canSplit ? canSplit() : false
             });
 
@@ -140,7 +143,7 @@ export const StrategyAdvisor: React.FC<StrategyAdvisorProps> = ({
                 activeHand.cards,
                 dealerUpCard,
                 canSurrender ? canSurrender() : false,
-                canDoubleDown ? canDoubleDown() : false,
+                canActuallyDouble, // Pass the actual ability to double
                 canSplit ? canSplit() : false
             );
 
@@ -149,7 +152,13 @@ export const StrategyAdvisor: React.FC<StrategyAdvisorProps> = ({
             // Generate explanation
             if (showDetailedExplanation) {
                 const actionExplanation = generateExplanation(action, activeHand.cards, dealerUpCard);
-                setExplanation(actionExplanation);
+
+                // If strategy recommends double but it's not available, add clarification
+                const finalExplanation = action === 'double' && !canActuallyDouble
+                    ? `${actionExplanation} (Double not available, take a hit instead)`
+                    : actionExplanation;
+
+                setExplanation(finalExplanation);
             }
 
             console.log('Strategy recommendation:', action);

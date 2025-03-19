@@ -1,10 +1,51 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useProbabilityEngine } from '@/hooks/useProbabilityEngine';
-import { Card, Badge, Progress } from '@/ui/layout';
-import { useMemo } from 'react';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/player/badge';
+import { Progress } from '@/components/ui/progress';
 import { useEnhancedSettingsStore } from '@/store/enhancedSettingsStore';
+
+// Type definitions
+interface DeckState {
+    trueCount: number;
+    decksRemaining: number;
+    runningCount: number;
+    cardPercentages: Record<string, number>;
+}
+
+interface PlayerDecision {
+    hitEV: number;
+    standEV: number;
+    doubleDownEV: number;
+    splitEV: number | null;
+    insuranceEV: number | null;
+    surrenderEV: number;
+    bustProbabilities: {
+        afterHit: number;
+        afterDoubleDown: number;
+    };
+}
+
+interface DealerOutcome {
+    bustProbability: number;
+    blackjackProbability: number;
+    expectedValue: number;
+    finalTotalProbabilities: Record<string, number>;
+}
+
+interface HouseEdgeInfo {
+    currentHouseEdge: number;
+    baseHouseEdge: number;
+    deckFavorsPlayer: boolean;
+    edgeFactors: {
+        blackjackPayoutContribution: number;
+        dealerHitSoft17Contribution: number;
+        deckCountContribution: number;
+        otherRulesContribution: number;
+    };
+}
 
 /**
  * Main component that displays probability information
@@ -40,7 +81,7 @@ export const ProbabilityDisplay: React.FC = () => {
             {playerDecisions && (
                 <PlayerDecisionsCard
                     decisions={playerDecisions}
-                    recommendedAction={recommendedAction || undefined}
+                    recommendedAction={recommendedAction ?? undefined}
                 />
             )}
 
@@ -59,7 +100,7 @@ export const ProbabilityDisplay: React.FC = () => {
  * Card displaying deck composition and counting information
  */
 const DeckCompositionCard: React.FC<{
-    deckState: any;
+    deckState: DeckState;
 }> = ({ deckState }) => {
     const formattedTrueCount = useMemo(() => {
         const value = deckState.trueCount;
@@ -77,7 +118,7 @@ const DeckCompositionCard: React.FC<{
             <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-white">Deck Composition</h3>
-                    <Badge variant={deckState.trueCount > 0 ? "success" : "destructive"}>
+                    <Badge variant={deckState.trueCount > 0 ? "secondary" : "destructive"} className={deckState.trueCount > 0 ? "bg-green-600" : ""}>
                         {deckState.decksRemaining.toFixed(1)} decks
                     </Badge>
                 </div>
@@ -103,7 +144,7 @@ const DeckCompositionCard: React.FC<{
                             <div key={rank} className="flex flex-col items-center">
                                 <span className="text-xs text-slate-400">{rank}</span>
                                 <span className="text-xs font-medium text-white">
-                                    {Math.round((percentage as number) * 100)}%
+                                    {Math.round(percentage * 100)}%
                                 </span>
                             </div>
                         ))
@@ -118,7 +159,7 @@ const DeckCompositionCard: React.FC<{
  * Card displaying player decision probabilities
  */
 const PlayerDecisionsCard: React.FC<{
-    decisions: any;
+    decisions: PlayerDecision;
     recommendedAction?: string;
 }> = ({ decisions, recommendedAction }) => {
     // Map decision names to display names
@@ -228,7 +269,7 @@ const PlayerDecisionsCard: React.FC<{
  * Card displaying dealer outcome probabilities
  */
 const DealerOutcomesCard: React.FC<{
-    outcomes: any;
+    outcomes: DealerOutcome;
 }> = ({ outcomes }) => {
     // Format probability as percentage
     const formatProb = (prob: number): string => {
@@ -267,12 +308,11 @@ const DealerOutcomesCard: React.FC<{
                         <div key={total} className="flex items-center gap-2">
                             <div className="w-8 text-xs text-slate-300">{total}</div>
                             <Progress
-                                value={Math.round((probability as number) * 100)}
-                                className="h-2"
-                                indicatorClassName={`bg-${parseInt(total) >= 20 ? 'amber' : 'blue'}-500`}
+                                value={Math.round(probability * 100)}
+                                className={`h-2 ${parseInt(total) >= 20 ? 'bg-amber-500/20' : 'bg-blue-500/20'} [&>div]:${parseInt(total) >= 20 ? 'bg-amber-500' : 'bg-blue-500'}`}
                             />
                             <div className="w-12 text-xs text-slate-300">
-                                {formatProb(probability as number)}
+                                {formatProb(probability)}
                             </div>
                         </div>
                     ))}
@@ -286,7 +326,7 @@ const DealerOutcomesCard: React.FC<{
  * Card displaying house edge information
  */
 const HouseEdgeCard: React.FC<{
-    houseEdge: any;
+    houseEdge: HouseEdgeInfo;
 }> = ({ houseEdge }) => {
     return (
         <Card className="p-4 bg-slate-800">
@@ -294,8 +334,8 @@ const HouseEdgeCard: React.FC<{
                 <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-white">House Edge</h3>
                     <Badge
-                        variant={houseEdge.deckFavorsPlayer ? "success" : "destructive"}
-                        className="font-mono"
+                        variant={houseEdge.deckFavorsPlayer ? "secondary" : "destructive"}
+                        className={houseEdge.deckFavorsPlayer ? "bg-green-600 font-mono" : "font-mono"}
                     >
                         {houseEdge.currentHouseEdge.toFixed(2)}%
                     </Badge>

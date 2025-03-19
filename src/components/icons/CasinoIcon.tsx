@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface CasinoIconProps extends React.SVGProps<SVGSVGElement> {
+type CasinoIconProps = React.SVGProps<SVGSVGElement> & {
     className?: string;
-}
+};
 
 export const CasinoIcon: React.FC<CasinoIconProps> = ({ className, ...props }) => {
     return (

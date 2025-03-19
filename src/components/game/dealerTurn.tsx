@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useGameStore } from '@/store/hooks/useGameStore';
 import { useTableSettings, useGameVariantSettings } from '@/hooks/useSettingsStore';
-import { getBestHandValue, calculateHandValues } from '@/lib/utils/gameLogic';
+import { calculateHandValues } from '@/lib/utils/gameLogic';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { CasinoIcon } from '@/components/icons';
@@ -34,7 +34,6 @@ export const DealerTurn = ({
     // Get game state - with error handling
     const dealerHand = useGameStore(state => state?.dealerHand);
     const playDealerTurn = useGameStore(state => state?.playDealerTurn);
-    const gamePhase = useGameStore(state => state?.gamePhase);
 
     // Get game rules from settings store
     const { gameRules } = useGameVariantSettings();
@@ -69,7 +68,7 @@ export const DealerTurn = ({
             // Ensure all cards are face up for display purposes
             const visibleCards = dealerHand.cards.map(card => ({
                 ...card,
-                isFaceUp: true
+                isFaceUp: true // Force all cards to be face up in UI
             }));
 
             // Add explicit logging for debugging
@@ -174,14 +173,14 @@ export const DealerTurn = ({
                 <div className="flex flex-col items-center justify-center p-4 my-4 text-white rounded-lg bg-black/40 backdrop-blur-sm">
                     <div className="flex items-center mb-3">
                         <CasinoIcon className="w-6 h-6 mr-2 text-amber-400" />
-                        <h3 className="text-lg font-semibold">Dealer's Turn</h3>
+                        <h3 className="text-lg font-semibold">Dealer&apos;s Turn</h3>
                     </div>
 
                     <p className="mb-4 text-center">{status}</p>
 
                     {/* Debug info during development */}
                     {process.env.NODE_ENV !== 'production' && dealerHand?.cards && (
-                        <div className="p-2 mt-2 text-xs bg-black/50 rounded-md">
+                        <div className="p-2 mt-2 text-xs rounded-md bg-black/50">
                             <p>Cards: {dealerHand.cards.map(c => `${c.rank}${c.suit[0]}`).join(', ')}</p>
                             <p>Values: {dealerHand.values?.join(', ') || 'none'}</p>
                             <p>Is soft: {dealerHand.isSoft ? 'Yes' : 'No'}</p>
@@ -192,7 +191,7 @@ export const DealerTurn = ({
                     <Button
                         onClick={onComplete}
                         variant="default"
-                        className="text-white mt-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400"
+                        className="mt-3 text-white bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400"
                     >
                         Continue
                     </Button>

@@ -1,0 +1,270 @@
+/* House Rules page styles */
+
+/* Decorative elements containers */
+.decorativeCardsContainer {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.05;
+}
+
+.decorativeChipsContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Decorative elements */
+.decorativeCard {
+  position: absolute;
+  width: 16rem;
+  height: 20rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: rotate(var(--rotation));
+  opacity: var(--opacity);
+}
+
+.decorativeChip {
+  position: absolute;
+  bottom: var(--bottom);
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 9999px;
+  background-color: var(--color);
+}
+
+/* Cards with different positions */
+.card0 {
+  --rotation: 15deg;
+  --opacity: 0.08;
+  top: 10%;
+  left: 5%;
+}
+.card1 {
+  --rotation: 45deg;
+  --opacity: 0.06;
+  top: 25%;
+  left: 15%;
+}
+.card2 {
+  --rotation: 85deg;
+  --opacity: 0.1;
+  top: 40%;
+  left: 80%;
+}
+.card3 {
+  --rotation: 120deg;
+  --opacity: 0.07;
+  top: 65%;
+  left: 25%;
+}
+.card4 {
+  --rotation: 180deg;
+  --opacity: 0.09;
+  top: 15%;
+  left: 70%;
+}
+.card5 {
+  --rotation: 210deg;
+  --opacity: 0.05;
+  top: 75%;
+  left: 85%;
+}
+.card6 {
+  --rotation: 250deg;
+  --opacity: 0.08;
+  top: 5%;
+  left: 45%;
+}
+.card7 {
+  --rotation: 290deg;
+  --opacity: 0.1;
+  top: 55%;
+  left: 10%;
+}
+.card8 {
+  --rotation: 320deg;
+  --opacity: 0.06;
+  top: 85%;
+  left: 55%;
+}
+.card9 {
+  --rotation: 350deg;
+  --opacity: 0.09;
+  top: 35%;
+  left: 90%;
+}
+.card10 {
+  --rotation: 110deg;
+  --opacity: 0.07;
+  top: 80%;
+  left: 40%;
+}
+.card11 {
+  --rotation: 70deg;
+  --opacity: 0.08;
+  top: 20%;
+  left: 30%;
+}
+
+/* Chips with different colors and positions */
+.chip0 {
+  --color: #e11d48;
+  --size: 30px;
+  --left: 10%;
+  --bottom: -5px;
+}
+.chip1 {
+  --color: #f59e0b;
+  --size: 40px;
+  --left: 25%;
+  --bottom: -10px;
+}
+.chip2 {
+  --color: #0891b2;
+  --size: 25px;
+  --left: 40%;
+  --bottom: -8px;
+}
+.chip3 {
+  --color: #4f46e5;
+  --size: 35px;
+  --left: 55%;
+  --bottom: -12px;
+}
+.chip4 {
+  --color: #e11d48;
+  --size: 28px;
+  --left: 70%;
+  --bottom: -7px;
+}
+.chip5 {
+  --color: #f59e0b;
+  --size: 42px;
+  --left: 85%;
+  --bottom: -15px;
+}
+.chip6 {
+  --color: #0891b2;
+  --size: 32px;
+  --left: 5%;
+  --bottom: -10px;
+}
+.chip7 {
+  --color: #4f46e5;
+  --size: 38px;
+  --left: 18%;
+  --bottom: -8px;
+}
+.chip8 {
+  --color: #e11d48;
+  --size: 27px;
+  --left: 33%;
+  --bottom: -5px;
+}
+.chip9 {
+  --color: #f59e0b;
+  --size: 36px;
+  --left: 48%;
+  --bottom: -12px;
+}
+.chip10 {
+  --color: #0891b2;
+  --size: 31px;
+  --left: 63%;
+  --bottom: -9px;
+}
+.chip11 {
+  --color: #4f46e5;
+  --size: 39px;
+  --left: 78%;
+  --bottom: -14px;
+}
+.chip12 {
+  --color: #e11d48;
+  --size: 26px;
+  --left: 93%;
+  --bottom: -6px;
+}
+.chip13 {
+  --color: #f59e0b;
+  --size: 33px;
+  --left: 3%;
+  --bottom: -11px;
+}
+.chip14 {
+  --color: #0891b2;
+  --size: 37px;
+  --left: 15%;
+  --bottom: -13px;
+}
+.chip15 {
+  --color: #4f46e5;
+  --size: 29px;
+  --left: 30%;
+  --bottom: -4px;
+}
+.chip16 {
+  --color: #e11d48;
+  --size: 34px;
+  --left: 45%;
+  --bottom: -9px;
+}
+.chip17 {
+  --color: #f59e0b;
+  --size: 41px;
+  --left: 60%;
+  --bottom: -16px;
+}
+.chip18 {
+  --color: #0891b2;
+  --size: 24px;
+  --left: 75%;
+  --bottom: -7px;
+}
+.chip19 {
+  --color: #4f46e5;
+  --size: 43px;
+  --left: 90%;
+  --bottom: -18px;
+}
+
+/* Gradient positions */
+.redGradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    rgba(153, 27, 27, 0.2) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  top: -50%;
+  left: 30%;
+}
+
+.amberGradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    rgba(180, 83, 9, 0.2) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  top: 0%;
+  left: 70%;
+}
+
+/* Header parallax effect */
+.headerSection {
+  transform: translateY(var(--scroll-y, 0));
+  opacity: var(--header-opacity, 1);
+}

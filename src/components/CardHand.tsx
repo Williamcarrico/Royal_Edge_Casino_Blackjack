@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hand, Card } from '@/lib/utils/gameLogic';
+import { Hand } from '@/lib/utils/gameLogic';
 import { handUtils } from '@/lib/utils/handUtils';
 import { isDefined } from '@/lib/utils/safeAccessUtils';
 
@@ -21,42 +21,55 @@ const CardHand: React.FC<CardHandProps> = ({
     showHandValue = true
 }) => {
     // Use our utility for safe hand value access
-    const bestValue = handUtils.getBestValue(hand);
     const description = handUtils.getHandDescription(hand);
 
     return (
         <div className="flex flex-col items-center mb-6">
-            <h3 className="text-lg font-bold mb-2 text-white">{title}</h3>
+            <h3 className="mb-2 text-lg font-bold text-white">{title}</h3>
 
             <div className="flex flex-row gap-2 mb-2">
                 {!hand || hand.cards.length === 0 ? (
-                    <div className="w-20 h-28 bg-gray-800 border border-gray-700 rounded-md flex items-center justify-center text-gray-500">
+                    <div className="flex items-center justify-center w-20 text-gray-500 bg-gray-800 border border-gray-700 rounded-md h-28">
                         No cards
                     </div>
                 ) : (
-                    hand.cards.map((card, index) => (
-                        <div
-                            key={`${card.suit}-${card.rank}-${index}`}
-                            className={`w-20 h-28 ${card.isFaceUp
-                                    ? (card.suit === '♥' || card.suit === '♦'
-                                        ? 'bg-white text-red-600'
-                                        : 'bg-white text-black')
-                                    : 'bg-blue-900 text-white'
-                                } rounded-md border border-gray-300 shadow flex flex-col justify-between p-1`}
-                        >
-                            {card.isFaceUp ? (
-                                <>
-                                    <div className="text-left text-xl font-bold">{card.rank}</div>
-                                    <div className="text-center text-3xl">{card.suit}</div>
-                                    <div className="text-right text-xl font-bold">{card.rank}</div>
-                                </>
-                            ) : (
-                                <div className="h-full w-full flex items-center justify-center">
-                                    <div className="transform rotate-45 text-4xl">♠</div>
-                                </div>
-                            )}
-                        </div>
-                    ))
+                    hand.cards.map((card, index) => {
+                        const getFaceUpColor = () => {
+                            return (card.suit === 'hearts' || card.suit === 'diamonds')
+                                ? 'bg-white text-red-600'
+                                : 'bg-white text-black';
+                        };
+
+                        const cardColor = card.isFaceUp
+                            ? getFaceUpColor()
+                            : 'bg-blue-900 text-white';
+
+                        const getSuitSymbol = () => {
+                            if (card.suit === 'hearts') return '♥';
+                            if (card.suit === 'diamonds') return '♦';
+                            if (card.suit === 'clubs') return '♣';
+                            return '♠';
+                        };
+
+                        return (
+                            <div
+                                key={`${card.suit}-${card.rank}-${index}`}
+                                className={`w-20 h-28 ${cardColor} rounded-md border border-gray-300 shadow flex flex-col justify-between p-1`}
+                            >
+                                {card.isFaceUp ? (
+                                    <>
+                                        <div className="text-xl font-bold text-left">{card.rank}</div>
+                                        <div className="text-3xl text-center">{getSuitSymbol()}</div>
+                                        <div className="text-xl font-bold text-right">{card.rank}</div>
+                                    </>
+                                ) : (
+                                    <div className="flex items-center justify-center w-full h-full">
+                                        <div className="text-4xl transform rotate-45">♠</div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })
                 )}
             </div>
 
@@ -71,11 +84,11 @@ const CardHand: React.FC<CardHandProps> = ({
             )}
 
             {isDefined(hand) && hand.isBlackjack && (
-                <div className="text-yellow-400 font-bold text-lg mt-1">Blackjack!</div>
+                <div className="mt-1 text-lg font-bold text-yellow-400">Blackjack!</div>
             )}
 
             {isDefined(hand) && hand.isBusted && (
-                <div className="text-red-500 font-bold text-lg mt-1">Busted!</div>
+                <div className="mt-1 text-lg font-bold text-red-500">Busted!</div>
             )}
         </div>
     );
