@@ -1,0 +1,15 @@
+.progressBar {
+  height: 100%;
+  background-image: linear-gradient(to right, #3b82f6, #8b5cf6);
+  transition: width 300ms;
+  width: var(--progress-width, 0%);
+}
+
+.backgroundPattern {
+  background-image: radial-gradient(
+    circle at 25px 25px,
+    rgba(255, 255, 255, 0.15) 2px,
+    transparent 0
+  );
+  background-size: 50px 50px;
+}

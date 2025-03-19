@@ -1,0 +1,33 @@
+.tableRoot {
+  --table-color: #1a5f7a;
+  background-color: var(--table-color);
+}
+
+/* Custom color classes that can be dynamically applied */
+.color-red {
+  --table-color: #7a1a1a;
+}
+
+.color-green {
+  --table-color: #1a7a1a;
+}
+
+.color-blue {
+  --table-color: #1a1a7a;
+}
+
+.color-purple {
+  --table-color: #6a1a7a;
+}
+
+.color-black {
+  --table-color: #222222;
+}
+
+/* Class for custom colors
+ * The actual color value will be injected via JavaScript in a CSS-in-JS approach
+ * We're just marking this element as having a custom color
+ */
+
+/* We no longer need this since we'll handle custom colors differently */
+/* The data-table-color approach has been deprecated in favor of direct CSS variable injection */
